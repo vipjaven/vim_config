@@ -1,0 +1,498 @@
+"Javen's VIM config file
+"init @ April,2008
+"
+"
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese,prc,taiwan,cp936,cp950,big5,latin-1,latin-2
+
+"color and encoding setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+"set guifont=Courier\ 10\ Pitch\ 12
+"set guifont=Consolas\ 12
+if has("gui_running") "GUI mode
+    set guitablabel=%t
+    if has("win32") "windows platform
+        colorscheme blue
+        set fileencoding=chinese
+    else
+        colorscheme dw_green 
+        "set guifont=YaHei\ Consolas\ Hybrid\ 12
+        set fileencoding=utf-8
+    endif
+
+    let &termencoding=&encoding
+
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    "language messages zh_CN.utf-8
+
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
+    set guioptions+=i
+    set guioptions-=m
+    set guioptions+=c
+else "console mode
+    "set tabline=%t
+    if &term == "linux" 
+        set t_Co=8
+    else
+        set t_Co=16
+    endif
+    let b:maxFileLen=0
+    set fileencoding=utf-8
+    colorscheme nilin
+endif
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+"miscellaneous setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+set nocp
+filetype plugin indent on
+set path+=../**,../../**,../../../**
+set tag=tags;../tags;../../tags;../../../tags;../../../../tags;../../../../../tags
+set hlsearch
+set ignorecase
+set smartcase
+set cindent shiftwidth=4
+set cino=:4g0t0(sus
+set sw=4
+set ts=4
+set et
+set cin
+set ai
+set ru
+set incsearch
+set sm
+set textwidth=80
+set showcmd
+set showmatch
+syntax on
+"set ut=100
+set nu!
+set linebreak
+set wrap
+set number
+set so=1
+set sidescrolloff=1
+set sidescroll=1
+set makeprg=make
+"set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set fdc=2 
+"set fdm=syntax
+syn on
+compiler gcc
+set fileformat=unix
+set autoindent
+set nocompatible
+set expandtab
+set smarttab
+set linespace=1
+set foldopen-=search " don't open folds when you search into them
+set foldopen-=undo " don't open folds when you undo stuff
+set fsync
+set laststatus=2
+function! TimeForStatusLine()
+    let curdir = strftime("%a %b %d %H:%M")
+    return curdir
+endfunction
+set ruler
+"set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
+hi User1 term=inverse,bold cterm=inverse,bold ctermfg=25 guifg=yellow guibg=darkgreen
+hi User2 term=inverse,bold cterm=inverse,bold ctermbg=25 guifg=lightred guibg=darkgreen
+hi User3 term=inverse,bold cterm=inverse,bold ctermfg=25 guifg=lightblue guibg=darkgreen
+hi User4 term=bold cterm=bold ctermbg=black ctermfg=lightblue guifg=blue
+hi statusline guifg=white ctermfg=white ctermbg=25 guibg=darkgreen gui=None
+"set statusline=%m%F%r%h%w\ [%Y]\ [%{&ff}]\ [F:%{&fenc}\/B:%{&enc}]\ [row:%.8l\/%.8L]\ [column:%.4c-%.4V]\ [%p%%-%P]\ [%{TimeForStatusLine()}]
+set statusline=%1*%m%F%r%h%w%*%3*[%Y]%*%3*[%{&ff}]%*%3*[F:%{&fenc}\/B:%{&enc}]%*%3*[line:%.8l\/%.8L]%*%3*[col:%.4c%.4V]%*%2*[%{TimeForStatusLine()}]%*%{GitBranch()}
+"set nocursorline
+set nocursorcolumn
+set updatecount=819222
+set undolevels=819222
+set history=819222
+set nobackup
+set sessionoptions+=unix,slash
+if has("autocmd") 
+    au BufNewFile,BufRead,BufEnter,BufNewFile,BufFilePost,BufLeave *.cp,*.CP,*.cP,*.Cp,*.cpp,*.CPP setf cpp
+    "autocmd BufEnter,BufRead,BufNewFile,BufFilePost,BufLeave * if &ft == '' || &ft == 'java' | setf java | endif
+    au BufEnter,BufRead,BufNewFile,BufFilePost *.java,*.JAVA setf java
+    "autocmd BufWrite,BufWritePre,FileWritePre,FileAppendPre * if !&bomb | set binary | set noendofline | endif
+    "autocmd BufWrite,BufWritePre,FileWritePre,FileAppendPre *.bat,*.csv,*.cmd if !&bomb | set nobinary | set endofline | endif
+    "autocmd BufWritePost,FileWritePost,FileAppendPost * if !&bomb | set nobinary | set endofline | endif
+endif
+set modelines=10
+set modeline
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+" Hide the mouse when typing text
+set mousehide
+
+"ClearCase cheetsheet
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+nmap <C-C><C-V> :silent !cleartool lsvtree -g -all "%"<cr>
+nmap <C-C><C-L> :silent !cleartool lscheckout -g <cr>
+nmap <C-C><C-C> :silent !cleartool diff -g -pre "%"<cr>
+nmap <C-C><C-O> :silent !cleartool checkout  "%"<cr>
+nmap <C-C><C-S> :silent !"E:\ClearCaseScript\view_property.bat"<cr>
+nmap <C-C><C-E> :silent !explorer /e,/select,"%"<cr>
+nmap <C-C><C-X> :silent !clearexplorer "%"<cr><cr>
+nmap <C-C><C-I> :JavaSearch<cr>
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+"Doxgen setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+let g:DoxygenToolkit_briefTag_pre = ""
+let g:DoxygenToolkit_paramTag_pre="@Param " 
+let g:DoxygenToolkit_returnTag="@Returns   " 
+let g:DoxygenToolkit_authorName="xxx" 
+let g:DoxygenToolkit_licenseTag="xxx Ltd. Co."
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ 
+"" BufExplorer setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+let g:bufExplorerDefaultHelp=0       " Do not show default help.
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
+let g:bufExplorerSortBy='mru'        " Sort by most recently used.
+let g:bufExplorerSplitRight=0        " Split left.
+let g:bufExplorerSplitVertical=1     " Split vertically.
+let g:bufExplorerSplitVertSize = 30  " Split width
+let g:bufExplorerUseCurrentWindow=1  " Open in new window.
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ 
+" winManager setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+let g:winManagerWindowLayout = "BufExplorer,FileExplorer|TagList"
+let g:winManagerWidth = 30
+let g:defaultExplorer = 0
+let g:netrw_browse_split = 0
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+"using for copen
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+nmap <C-S-N> :cn<cr>
+nmap <C-S-P> :cp<cr>
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+"Max
+"nmap <A-f> :silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz<cr>
+"WMToggle setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+nmap <C-W><C-F> :FirstExplorerWindow<cr>
+nmap <C-W><C-B> :BottomExplorerWindow<cr>
+nmap <silent> <leader>wm :WMToggle<cr> 
+nmap <leader>e :Explore<cr>
+nmap <C-H> :ptag <C-R><C-W><cr>
+nmap <leader>mar :mat red /.\%>81v/<cr>
+nmap <silent><leader>vv :silent !e:\MacroForSi\OpenInVC.pl "<C-R>=expand("%:p")<cr>" <C-R>=line(".")<cr><cr>
+nmap <silent><leader>si :silent !"start C:\Program Files\SourceInsight\Insight3.exe" -i +<C-R>=line(".")<cr> "<C-R>=expand("%:p")<cr>" -c "Select Line"<cr>
+map <F9> :echo nr2char(<C-R><C-W>)<cr>;
+map <left> :tabp<cr>;
+map <right> :tabn<cr>;
+map <leader>16 :echo printf("%x", <C-R><C-W>)<cr> 
+map <leader>10 :echo printf("%d", <C-R><C-W>)<cr> 
+map <leader>08 :echo printf("%o", <C-R><C-W>)<cr> 
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+" ShowMarks setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+let g:showmarks_enable = 1
+" For marks a-z
+highlight ShowMarksHLl ctermfg=yellow gui=bold guibg=DarkBlue guifg=White
+" For marks A-Z
+highlight ShowMarksHLu ctermfg=blue gui=bold guibg=DarkGreen guifg=White
+" For all other marks
+highlight ShowMarksHLo gui=bold guibg=Yellow guifg=Black
+" For multiple marks on the same line.
+highlight ShowMarksHLm ctermfg=red ctermbg=yellow gui=bold guibg=DarkRed guifg=DarkGreen
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+" Tag list (ctags) setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+"let Tlist_Ctags_Cmd = 'ctags'
+let Tlist_Show_One_File = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_Right_Window = 1
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+" lookupfile setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+let g:LookupFile_MinPatLength = 5
+let g:LookupFile_PreserveLastPattern = 0
+let g:LookupFile_PreservePatternHistory = 1
+let g:LookupFile_AlwaysAcceptFirst = 1
+let g:LookupFile_AllowNewFiles = 0
+"if filereadable("./filenametags")
+"   let g:LookupFile_TagExpr = '"./filenametags"'
+"endif
+let g:LookupFile_TagExpr = string('./filenametags')
+nmap <silent> <leader>lk :LookupFile<cr>
+nmap <silent> <leader>ll :LUBufs<cr>
+nmap <silent> <leader>lw :LUWalk<cr>
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+"save and load session
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+"nmap <leader>ss :mksession! ~\mysession<cr> :wviminfo! ~\myinfo<cr>
+"nmap <leader>rs :source ~\mysession<cr> :rviminfo ~\myinfo<cr> :so ~/.vimrc<cr>
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+nmap <leader>ss :call SaveMyContext()<CR>
+nmap <leader>rs :call ReadMyContext()<CR> :so ~/.vimrc<CR>
+nmap <leader>sn :call SaveContext()<CR>
+nmap <leader>rn :call ReadContext()<CR> :so ~/.vimrc<CR>
+
+function! SaveMyContext()
+    call inputsave()
+        execute "mksession! ".getcwd()."\/mysession"
+        execute "wviminfo! ".getcwd()."\/myinfo"
+    call inputrestore()
+endfunction
+
+function! ReadMyContext()
+    call inputsave()
+    execute "source ".getcwd()."\/mysession"
+    execute "rviminfo ".getcwd()."\/myinfo"
+    call inputrestore()
+endfunction
+
+function! SaveContext()
+    call inputsave()
+    let input = input("enter save file name: ")
+    if (input!="")
+        execute "mksession! "."~\/VimSession_".input
+        execute "wviminfo! "."~\/Viminfo_".input
+    endif
+    call inputrestore()
+endfunction
+function! ReadContext()
+    call inputsave()
+    let input = input("enter read file name: ")
+    if (input!="")
+        execute "source "."~\/VimSession_".input
+        execute "rviminfo "."~\/Viminfo_".input
+    endif
+    call inputrestore()
+endfunction
+
+
+"Cursor line highlight setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+set cursorline
+"set cursorcolumn
+"highlight cursorline  ctermbg=black guibg=darkcyan guifg=white
+"highlight cursorcolumn guifg=white guibg=darkcyan
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+let g:ctags_statusline=2
+
+"OmniCpp setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+let OmniCpp_DefaultNamespaces = ["std"]
+let OmniCpp_GlobalScopeSearch=1
+let OmniCpp_DisplayMode = 1
+let OmniCpp_ShowScopeInAbbr = 1
+let OmniCpp_ShowPrototypeInAbbr = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_MayCompleteDot = 1
+let OmniCpp_MayCompleteArrow = 1
+let OmniCpp_MayCompleteScope = 1
+let OmniCpp_SelectFirstItem = 0
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType c,cpp,cs setlocal omnifunc=ccomplete#Complete
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P>
+inoremap <buffer> <C-S-Space> <C-X><C-U><C-P>
+
+"call stardict: sdcv
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+function! Mydict()
+  let expl=system('sdcv --utf8-output -n ' .
+        \  expand("<cword>"))
+  windo if
+        \ expand("%")=="dict-tmp" |
+        \ q!|endif
+  sp dict-tmp
+  winc J 
+  norm ggdG
+  setlocal buftype=nofile bufhidden=hide noswapfile
+  1s/^/\=expl/
+  norm gggqG
+  silent g://: s::\r:g
+  syntax match Constant	/.*-->.*/
+  syntax match Type /^\/[^\/]*\//
+  syntax match Comment /\[[^\]]*\]/
+  syntax match Structure /\<\a*\>/
+  res 10
+  1
+endfunction
+
+nmap <C-F10> :call Mydict()<CR>
+"nmap <M-F10> :call Mydict()<CR>
+nmap <F10> :call Stardict(inputdialog("input word: "))<CR>
+
+function! Stardict(word)
+    if a:word != ""
+        let expl=system('sdcv --utf8-output -n ' .
+                    \  a:word)
+        windo if
+                    \ expand("%")=="dict-tmp" |
+                    \ q!|endif
+        sp dict-tmp
+        winc J 
+        norm ggdG
+        setlocal buftype=nofile bufhidden=hide noswapfile
+        1s/^/\=expl/
+        norm gggqG
+        silent g://: s::\r:g
+        syntax match Constant /.*-->.*/
+        syntax match Type /^\/[^\/]*\//
+        syntax match Comment /\[[^\]]*\]/
+        syntax match Structure /\<\a*\>/
+        res 10
+        1
+    endif
+endfunction
+
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+"map <F11>  :sp tags<CR>:%s/^\([^	:]*:\)\=\([^	]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
+"map <F12>  :so tags.vim<CR>
+"map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>:cscope kill 0<CR>:!cscope -bq<CR>:cscope add cscope.out<CR>
+"map <C-F12> :!ctags -R .<CR>:cscope kill 0<CR>:!cscope -bq<CR>:cscope add cscope.out<CR>
+set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+let g:netrw_list_hide='.*\.dep$\|.*\.o$\|.*\.a$'
+
+if &ft=='perl' 
+    se kp=perldoc\ -f\ 
+endif
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+" Pmenu setting
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+"highlight Pmenu ctermbg=cyan ctermfg=black guibg=DarkBlue guifg=White
+"highlight PmenuSel ctermbg=blue guibg=lightgreen guifg=DarkBlue
+"highlight PmenuSbar ctermbg=7 guibg=DarkGreen
+"highlight PmenuThumb guibg=Black
+
+highlight red guifg=white guibg=darkred
+highlight yellow guifg=black guibg=darkyellow
+highlight blue guifg=white guibg=blue
+highlight green guifg=white guibg=darkgreen
+highlight gray guifg=white guibg=darkgray
+"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+"
+set grepprg=ack-grep
+set mouse=a
+set nocst "nocscopetag 
+highlight SignColumn ctermbg=black
+highlight FoldColumn ctermbg=black
+
+au BufNewFile,BufRead *.aidl setf idl
+au BufRead,BufNewFile *.smali set filetype=smali
+
+function! Addcomment()
+    let l:filename = "~/Documents/git_temple"
+    let l:comment = matchstr(expand(@+),'\(:\s*\)\zs.*')
+    let l:bugid = matchstr(expand(@+),'\<\d\{4,7}\>')
+    if filereadable(expand(l:filename))
+        execute '0r ' . expand(l:filename)
+        execute '%s/#BUGID#/' . expand(l:bugid) . '/g'
+        execute '%s/#COMMENT#/Javen:' . expand(l:comment) . '/g'
+    endif
+endfunction
+
+function! Myconvert(hex,bit)
+    let words = ""
+    if a:hex != ""
+        if a:bit == 2
+            let mylist = split(a:hex, '\x\{2}\zs')
+        elseif a:bit == 4
+            let mylist = split(a:hex, '\x\{4}\zs')
+        endif
+
+        let words = ""
+        for c in mylist 
+            let words .= nr2char('0x' . c) 
+        endfor
+        return words
+    endif
+endfunction
+
+au StdinReadPost,FileReadPost,FilterReadPost,BufReadPost svn-commit*.tmp call Addcomment()
+au StdinReadPost,FileReadPost,FilterReadPost,BufReadPost COMMIT_EDITMSG call Addcomment()
+
+let g:MultipleSearchMaxColors=16
+let g:MultipleSearchColorSequence=    "red,yellow,blue,green,magenta,cyan,gray,brown"
+let g:MultipleSearchTextColorSequence="white,black,white,yellow,white,black,black,white"
+set helplang=cn
+
+" Use 0"+y0 to clear the clipboard, then
+"    :g/pattern/call CopyMultiMatches()
+" to copy all multiline hits (just the matching text).
+" This is for when the match extends over multiple lines.
+" Only the first match from each line is found.
+" BUG: When searching for "^function.*\_s*let" the '.*' stops at the end
+" of a line, but it greedily skips "\n" in the following (we copy too much).
+function! CopyMultiMatches()
+  let text = join(getline(".", "$"), "\n") . "\n"
+  let @+ .= matchstr(text, @/) . "\n"
+endfunction
+
+" neocomplete configure
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_quick_match = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+
+" // The switch of the Source Explorer 
+"nmap <F8> :SrcExplToggle<CR> 
+
+" // Set the height of Source Explorer window 
+let g:SrcExpl_winHeight = 8 
+
+" // Set 100 ms for refreshing the Source Explorer 
+let g:SrcExpl_refreshTime = 100 
+
+" // Set "Enter" key to jump into the exact definition context 
+" let g:SrcExpl_jumpKey = "<ENTER>" 
+
+" // Set "Space" key for back from the definition context 
+let g:SrcExpl_gobackKey = "<SPACE>" 
+
+" // In order to Avoid conflicts, the Source Explorer should know what plugins 
+" // are using buffers. And you need add their bufname into the list below 
+" // according to the command ":buffers!" 
+let g:SrcExpl_pluginList = [ 
+        \ "__Tag_List__", 
+        \ "_NERD_tree_", 
+        \ "Source_Explorer" 
+    \ ] 
+
+" // Enable/Disable the local definition searching, and note that this is not 
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+" // It only searches for a match with the keyword according to command 'gd' 
+let g:SrcExpl_searchLocalDef = 1 
+
+" // Do not let the Source Explorer update the tags file when opening 
+let g:SrcExpl_isUpdateTags = 0 
+
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+" //  create/update a tags file 
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+
+" // Set "<F12>" key for updating the tags file artificially 
+let g:SrcExpl_updateTagsKey = "<F12>" 
+" vi:se ft=vim:se tw=80:
+"
