@@ -20,7 +20,8 @@ let g:colors_name="nilin"
 hi Boolean                                       guifg=#00ff00 ctermfg=46 ctermbg=16 cterm=none
 hi cDefine                                       guifg=#00ff00
 hi cInclude                                      guifg=#ffffff
-hi Comment                                       guifg=#696969 ctermfg=242 ctermbg=16 cterm=none
+"hi Comment                                       guifg=#696969 ctermfg=242 ctermbg=16 cterm=none
+hi Comment                                       guifg=#696969 ctermfg=brown ctermbg=16 cterm=none
 hi Constant                                      guifg=#00ff00 ctermfg=46 ctermbg=16 cterm=none
 hi Cursor                         guibg=#444444  guifg=#ffffff ctermfg=231 ctermbg=238 cterm=none
 hi CursorColumn                   guibg=#001100 ctermbg=22 cterm=none
@@ -45,7 +46,8 @@ hi MoreMsg                        guibg=#000000  guifg=#00ff00 ctermfg=46 ctermb
 hi NonText                        guibg=#000000  guifg=#ffffff ctermfg=231 ctermbg=16 cterm=none
 "hi Normal          gui=none       guibg=#000000  guifg=#c0c0c0 ctermfg=250 ctermbg=16 cterm=none
 hi Normal          gui=none       guibg=#000000  guifg=#c0c0c0 ctermfg=151 ctermbg=16 cterm=none
-hi Operator        gui=none                      guifg=#696969 ctermfg=242 ctermbg=16 cterm=none
+"hi Operator        gui=none                      guifg=#696969 ctermfg=242 ctermbg=16 cterm=none
+hi Operator        gui=none                      guifg=#696969 ctermfg=darkgreen ctermbg=16 cterm=bold
 "hi PreProc         gui=none                      guifg=#ffffff ctermfg=231 ctermbg=16 cterm=none
 hi PreProc         gui=none                      guifg=#ffffff ctermfg=69 ctermbg=16 cterm=none
 hi Question                                      guifg=#00ff00 ctermfg=46 ctermbg=16 cterm=none
