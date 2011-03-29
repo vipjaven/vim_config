@@ -196,6 +196,7 @@ map <right> :tabn<cr>;
 map <leader>16 :echo printf("%x", <C-R><C-W>)<cr> 
 map <leader>10 :echo printf("%d", <C-R><C-W>)<cr> 
 map <leader>08 :echo printf("%o", <C-R><C-W>)<cr> 
+map <F12> :TagbarToggle<cr>
 "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 " ShowMarks setting
@@ -278,7 +279,6 @@ function! ReadContext()
     endif
     call inputrestore()
 endfunction
-
 
 "Cursor line highlight setting
 "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -454,7 +454,7 @@ function! CopyMultiMatches()
 endfunction
 
 " neocomplete configure
-let g:neocomplcache_enable_at_startup = 0
+let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_quick_match = 1
 let g:neocomplcache_enable_camel_case_completion = 1
