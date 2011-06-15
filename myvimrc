@@ -188,6 +188,7 @@ nmap <C-W><C-B> :BottomExplorerWindow<cr>
 nmap <silent> <leader>wm :WMToggle<cr> 
 nmap <leader>e :Explore<cr>
 nmap <C-H> :ptag <C-R><C-W><cr>
+nmap <C-]> :ltag <C-R><C-W><cr>
 nmap <leader>mar :mat red /.\%>81v/<cr>
 nmap <silent><leader>vv :silent !e:\MacroForSi\OpenInVC.pl "<C-R>=expand("%:p")<cr>" <C-R>=line(".")<cr><cr>
 nmap <silent><leader>si :silent !"start C:\Program Files\SourceInsight\Insight3.exe" -i +<C-R>=line(".")<cr> "<C-R>=expand("%:p")<cr>" -c "Select Line"<cr>
@@ -249,6 +250,7 @@ nmap <leader>sn :call SaveContext()<CR>
 nmap <leader>rn :call ReadContext()<CR> :so ~/.vimrc<CR>
 
 function! SaveMyContext()
+    execute "TagbarClose"
     call inputsave()
         execute "mksession! ".getcwd()."\/mysession"
         execute "wviminfo! ".getcwd()."\/myinfo"
@@ -263,6 +265,7 @@ function! ReadMyContext()
 endfunction
 
 function! SaveContext()
+    execute "TagbarClose"
     call inputsave()
     let input = input("enter save file name: ")
     if (input!="")
@@ -455,8 +458,10 @@ function! CopyMultiMatches()
 endfunction
 
 " neocomplete configure
-let g:neocomplcache_enable_at_startup = 0
+let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_quick_match = 1
+let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_quick_match = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 

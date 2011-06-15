@@ -1,9 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/b312/.vim'
-let g:netrw_dirhist_2='/home/b312/.vim/colors'
-let g:netrw_dirhist_3='/home/b312/source/data/git/bbdev/frameworks/base/native/android'
-let g:netrw_dirhist_4='/home/b312/source/data/git/bbdev/frameworks/base/native'
-let g:netrw_dirhist_5='/home/b312/source/data/git/bbdev/frameworks/base'
-let g:netrw_dirhist_6='/home/b312/source/data/git/bbdev/frameworks'
-let g:netrw_dirhist_7='/home/b312/source/data/git/bbdev'
+let g:netrw_dirhist_cnt =0
