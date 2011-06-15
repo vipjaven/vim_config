@@ -1,4 +1,4 @@
-hello
+world
 Description:
 neocomplcache performs keyword completion by making a cache of keyword in
 buffer. Because I implemented it by paying own expenses unlike the keyword
