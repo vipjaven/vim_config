@@ -1,2 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/b312/source/bbdev/packages/apps/Phone/src/com/android'
+let g:netrw_dirhist_2='/home/b312/source/bbdev/packages/apps/Phone/src/com/android/phone'
+let g:netrw_dirhist_3='/home/b312/source/bbdev/packages/apps/Phone/src/com/android/phone/sip'
+let g:netrw_dirhist_4='/home/b312/source/bbdev/packages/apps/Phone/src/com/android/phone'
+let g:netrw_dirhist_5='/home/b312/source/bbdev/packages/apps/Settings/src/com/android/settings'
+let g:netrw_dirhist_6='/home/b312/source/bbdev/frameworks/base/telephony/java/com/android/internal/telephony/gsm/stk'
+let g:netrw_dirhist_7='/home/b312/source/bbdev'
+let g:netrw_dirhist_8='/home/b312/source/bbdev/frameworks/base/telephony/java/com/android/internal/telephony/gsm/stk'
+let g:netrw_dirhist_9='/home/b312/.config/awesome'

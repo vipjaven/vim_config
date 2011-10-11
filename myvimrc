@@ -176,8 +176,10 @@ let g:netrw_browse_split = 0
 
 "using for copen
 "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-nmap <C-S-N> :cn<cr>
-nmap <C-S-P> :cp<cr>
+nmap <C-N> :cn<cr>
+nmap <C-P> :cp<cr>
+nmap <C-J> :colder<cr>
+nmap <C-K> :cnewer<cr>
 "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 "Max
 "nmap <A-f> :silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz<cr>
@@ -416,7 +418,7 @@ function! Addcomment()
     if filereadable(expand(l:filename))
         execute '0r ' . expand(l:filename)
         execute '%s/#BUGID#/' . expand(l:bugid) . '/g'
-        execute '%s/#COMMENT#/Javen:' . expand(l:comment) . '/g'
+        execute '%s/#COMMENT#/' . expand(l:comment) . '/g'
     endif
 endfunction
 
@@ -515,6 +517,26 @@ au BufNewFile,BufRead *.\(vim\)\@! inoremap " ""<esc>:let leavechar='"'<cr>i
 au BufNewFile,BufRead *.\(txt\)\@! inoremap ' ''<esc>:let leavechar="'"<cr>i
 imap <m-l> <esc>:exec "normal f" . leavechar<cr>a
 imap <d-l> <esc>:exec "normal f" . leavechar<cr>
+
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:    ' . a:cmdline)
+  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
 
 " vi:se ft=vim:se tw=80:
 "
