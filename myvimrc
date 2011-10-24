@@ -17,7 +17,7 @@ if has("gui_running") "GUI mode
         set fileencoding=chinese
     else
         colorscheme dw_green 
-        "set guifont=YaHei\ Consolas\ Hybrid\ 12
+        set guifont=YaHei\ Consolas\ Hybrid\ 12
         set fileencoding=utf-8
     endif
 
@@ -190,7 +190,7 @@ nmap <C-W><C-B> :BottomExplorerWindow<cr>
 nmap <silent> <leader>wm :WMToggle<cr> 
 nmap <leader>e :Explore<cr>
 nmap <C-H> :ptag <C-R><C-W><cr>
-nmap <C-]> :ltag <C-R><C-W><cr>
+nmap <C-]> :tag <C-R><C-W><cr>
 nmap <leader>mar :mat red /.\%>81v/<cr>
 nmap <silent><leader>vv :silent !e:\MacroForSi\OpenInVC.pl "<C-R>=expand("%:p")<cr>" <C-R>=line(".")<cr><cr>
 nmap <silent><leader>si :silent !"start C:\Program Files\SourceInsight\Insight3.exe" -i +<C-R>=line(".")<cr> "<C-R>=expand("%:p")<cr>" -c "Select Line"<cr>
@@ -404,7 +404,7 @@ highlight gray guifg=white guibg=darkgray
 "
 set grepprg=ack-grep
 set mouse=a
-set nocst "nocscopetag 
+set nocscopetag 
 highlight SignColumn ctermbg=black
 highlight FoldColumn ctermbg=black
 
