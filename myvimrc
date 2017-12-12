@@ -113,7 +113,7 @@ set statusline=%1*%m%F%r%h%w%*%3*[%Y]%*%3*[%{&ff}]%*%3*[F:%{&fenc}\/B:%{&enc}]%*
 set nocursorcolumn
 set updatecount=819222
 set undolevels=819222
-set history=819222
+set history=10000
 set nobackup
 set sessionoptions+=unix,slash
 if has("autocmd") 
